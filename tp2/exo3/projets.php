@@ -1,13 +1,6 @@
 <?php require_once("template_header.php")?>
     <div class="container">
-        <nav class="menu">
-            <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="cv.php">CV</a></li>
-                <li id="currentpage"><a href="projets.php">Projets</a></li>
-                <li><a href="info.php">Info</a></li>
-            </ul>
-        </nav>
+        <?php require_once("template_menu.php")?>
         <div class="contenu">
             <h2>Mes projets</h2>
             <h3>Jeu de Taquin</h3>
