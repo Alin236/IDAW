@@ -5,7 +5,7 @@
 
 .menu{
     flex-grow: 0;
-    border: thick double aqua;
+    border: thick ridge lightgray;
     background-color: lightgrey;
 }
 
