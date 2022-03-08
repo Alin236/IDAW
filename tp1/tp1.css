@@ -20,6 +20,8 @@
     display: block;
     padding: 5px 30px;
     text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
 .menu ul {
