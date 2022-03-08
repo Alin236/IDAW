@@ -3,7 +3,7 @@
         // un tableau qui définit la structure du site
         $mymenu = array(
             // idPage titre
-            'index' => array( 'Accueil' ),
+            'accueil' => array( 'Accueil' ),
             'cv' => array( 'CV' ),
             'projets' => array( 'Projets' ),
             'info-technique' => array( 'Info technique' ),
@@ -16,7 +16,7 @@
             if($pageId == $currentPageId){
                 echo ' id="currentpage"';
             }
-            echo "><a href=".$pageId.".php>".$pageParameters[0]."</a></li>";
+            echo "><a href=index.php?page=".$pageId.">".$pageParameters[0]."</a></li>";
         }
         echo '</ul></nav>';
         // Le menu a été crée et la page actuel marqué
