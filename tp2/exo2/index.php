@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <p>PHP donne l'heure : <?php echo date("d/m/Y h:i:s")?></p>
+    <p>PHP donne l'heure : <?php echo date("d/m/Y H:i:s", time()+3600)?>.</p>
     <p>Test de fonction qui addition l'heure, les minutes et les secondes : <?php
     function additionTemps($temps){
         $resultat = $temps["h"] + $temps["i"] + $temps["s"];
@@ -19,6 +19,6 @@
     echo additionTemps($temps);
     echo " (= ".$temps["h"]." + ".$temps["i"]." + ".$temps["s"].")";
     ?>
-    </p>
+    .</p>
 </body>
 </html>
