@@ -16,6 +16,10 @@
     border-style: outset;
 }
 
+.menu a {
+    display: block;
+}
+
 #currentpage{
     border-style: inset;
 }
