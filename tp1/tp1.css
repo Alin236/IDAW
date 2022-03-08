@@ -1,8 +1,13 @@
-.menu{
-    background-color: aqua;
-    color: red;
+.container{
+    display: flex;
+    justify-content: space-around;
 }
 
-ul {
-    list-style-type: square;
+.menu{
+    flex-grow: 0;
+}
+
+.contenu{
+    flex-grow: 0.95;
+    background-color: blue;
 }
