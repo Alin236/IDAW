@@ -38,6 +38,8 @@
     flex-grow: 0.95;
     align-self: stretch;
     border: thin solid lightgray;
+    padding: 5px;
+    margin: 5px;
 }
 
 header{
