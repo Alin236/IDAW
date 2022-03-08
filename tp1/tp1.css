@@ -16,6 +16,10 @@
     border-style: outset;
 }
 
+#currentpage{
+    border-style: inset;
+}
+
 .contenu{
     flex-grow: 0.95;
     background-color: blue;
