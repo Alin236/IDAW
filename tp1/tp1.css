@@ -35,7 +35,8 @@
 
 .contenu{
     flex-grow: 0.95;
-    background-color: blue;
+    align-self: stretch;
+    border: thin solid lightgray;
 }
 
 header{
