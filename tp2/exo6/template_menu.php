@@ -7,7 +7,8 @@
             'cv' => array( 'CV' ),
             'projets' => array( 'Projets' ),
             'info-technique' => array( 'Info technique' ),
-            'info' => array( 'Info' )
+            'info' => array( 'Info' ),
+            'contact' => array( 'Contact' )
         );
         // Création du menu en insérant l'attribut id=currentpage au bon endroit
         echo '<nav class="menu"><ul>';
