@@ -1,6 +1,9 @@
 <?php require_once("template_header.php")?>
     <div class="container">
-        <?php require_once("template_menu.php")?>
+        <?php
+            require_once("template_menu.php");
+            renderMenuToHTML("info-technique");
+        ?>
         <div class="contenu">
             <h2>Info technique du site ?</h2>
             <p>La consigne demandé d'avoir une page info, main ce site possédait déjà une page info.</p>

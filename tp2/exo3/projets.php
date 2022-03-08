@@ -1,6 +1,9 @@
 <?php require_once("template_header.php")?>
     <div class="container">
-        <?php require_once("template_menu.php")?>
+        <?php
+            require_once("template_menu.php");
+            renderMenuToHTML("projets");
+        ?>
         <div class="contenu">
             <h2>Mes projets</h2>
             <h3>Jeu de Taquin</h3>

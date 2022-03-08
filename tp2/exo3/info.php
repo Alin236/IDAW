@@ -1,6 +1,9 @@
 <?php require_once("template_header.php")?>
     <div class="container">
-        <?php require_once("template_menu.php")?>
+        <?php
+            require_once("template_menu.php");
+            renderMenuToHTML("info");
+        ?>
         <div class="contenu">
             <h2>Info du site</h2>
             <h3>Auteur :</h3>
