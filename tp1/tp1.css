@@ -37,3 +37,9 @@
     flex-grow: 0.95;
     background-color: blue;
 }
+
+header{
+    border-bottom-width: thick;
+    border-bottom-style: groove;
+    text-align: center;
+}
