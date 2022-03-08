@@ -2,7 +2,19 @@
     <div class="container">
         <?php
             require_once("template_menu.php");
-            renderMenuToHTML("index");
+            $currentPageId = 'accueil';
+            if(isset($_GET['page']))
+                $currentPageId = $_GET['page'];
+            renderMenuToHTML($currentPageId);
         ?>
+        <section class="contenu">
+            <?php
+                $pageToInclude = $currentPageId.".php";
+                if(is_readable($pageToInclude))
+                    require_once($pageToInclude);
+                else
+                    require_once("error.php");
+            ?>
+        </section>
     </div>
 <?php require_once("template_footer.php")?>
