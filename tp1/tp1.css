@@ -5,6 +5,15 @@
 
 .menu{
     flex-grow: 0;
+    border: thick double aqua;
+    background-color: lightgrey;
+}
+
+.menu li {
+    list-style-type: none;
+    border-top: 1px gray;
+    border-bottom: 1px gray;
+    border-style: outset;
 }
 
 .contenu{
