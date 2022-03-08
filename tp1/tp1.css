@@ -43,3 +43,11 @@ header{
     border-bottom-style: groove;
     text-align: center;
 }
+
+footer{
+    font-size: small;
+    text-align: end;
+    border-top-width: thin;
+    border-top-style: ridge;
+    margin-top: 10px;
+}
