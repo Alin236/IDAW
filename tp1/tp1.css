@@ -48,7 +48,7 @@ header{
 footer{
     font-size: small;
     text-align: end;
-    border-top-width: thin;
+    border-top-width: 2px;
     border-top-style: ridge;
     margin-top: 10px;
 }
