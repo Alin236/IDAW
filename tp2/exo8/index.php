@@ -6,16 +6,18 @@
     myHeader($currentLeng);
 ?>
     <div class="container">
-        <?php
-            require_once('template_menu.php');
-            $currentPageId = 'accueil';
-            if(isset($_GET['page'])){
-                $currentPageId = $_GET['page'];
-                if($currentPageId == 'index')
-                    $currentPageId = 'accueil';
-            }
-            renderMenuToHTML($currentPageId, $currentLeng);
-        ?>
+        <div class="columnMenu">
+            <?php
+                require_once('template_menu.php');
+                $currentPageId = 'accueil';
+                if(isset($_GET['page'])){
+                    $currentPageId = $_GET['page'];
+                    if($currentPageId == 'index')
+                        $currentPageId = 'accueil';
+                }
+                renderMenuToHTML($currentPageId, $currentLeng);
+            ?>
+        </div>
         <section class="contenu">
             <?php
                 $pageToInclude = "$currentLeng/$currentPageId.php";

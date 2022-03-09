@@ -1,13 +1,12 @@
 .container{
     display: flex;
-    justify-content: space-around;
 }
 
 .menu{
     flex-grow: 0;
     border: thick ridge lightgray;
     background-color: lightgrey;
-    align-self: center;
+    margin: 2px;
 }
 
 .menu li {
@@ -35,8 +34,7 @@
 }
 
 .contenu{
-    flex-grow: 0.95;
-    align-self: stretch;
+    flex-grow: 1;
     border: thin solid lightgray;
     padding: 5px;
     margin: 5px;
@@ -55,4 +53,9 @@ footer{
     border-top-width: 2px;
     border-top-style: ridge;
     margin-top: 10px;
+}
+
+.columnMenu{
+    display: flex;
+    flex-direction: column;
 }
