@@ -22,7 +22,8 @@
         // un tableau qui définit les langues disponible du site
         $myLeng = array(
             'fr' => array( 'Français' ),
-            'en' => array( 'English' )
+            'en' => array( 'English' ),
+            'es' => array( 'Español' )
         );
         echo '<nav class="menu"><ul>';
         foreach($myLeng as $leng => $lengParameters){
