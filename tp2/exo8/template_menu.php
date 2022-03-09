@@ -14,17 +14,22 @@
         foreach($mymenu as $pageId => $pageParameters) {
             echo "<li";
             if($pageId == $currentPageId){
-                echo ' id="currentpage"';
+                echo ' class="selected"';
             }
             echo "><a href=\"index.php?page=".$pageId."&leng=$currentLeng\">".$pageParameters[0]."</a></li>";
         }
+        echo '</ul></nav>';
         $myLeng = array(
             'fr' => array( 'Français' ),
             'en' => array( 'English' )
         );
+        echo '<nav class="menu"><ul>';
         foreach($myLeng as $leng => $lengParameters){
-            if($leng!=$currentLeng)
-                echo "<li><a href=\"index.php?page=$currentPageId&leng=$leng\">".$lengParameters[0]."</a></li>";
+            echo "<li";
+            if($leng == $currentLeng){
+                echo ' class="selected"';
+            }
+            echo "><a href=\"index.php?page=$currentPageId&leng=$leng\">".$lengParameters[0]."</a></li>";
         }
         echo '</ul></nav>';
         // Le menu a été crée et la page actuel marqué

@@ -30,7 +30,7 @@
     padding:0%;
 }
 
-#currentpage{
+.menu .selected{
     border-style: inset;
 }
 
