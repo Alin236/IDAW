@@ -15,11 +15,11 @@
         ?>
         <section class="contenu">
             <?php
-                $pageToInclude = $currentPageId.".php";
+                $pageToInclude = $currentLeng."/".$currentPageId.".php";
                 if(is_readable($pageToInclude))
                     require_once($pageToInclude);
                 else
-                    require_once("error.php");
+                    require_once("$currentLeng/error.php");
             ?>
         </section>
     </div>
