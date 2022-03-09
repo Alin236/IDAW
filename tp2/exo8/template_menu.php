@@ -6,7 +6,6 @@
             'accueil' => array( 'Accueil' ),
             'cv' => array( 'CV' ),
             'projets' => array( 'Projets' ),
-            'info-technique' => array( 'Info technique' ),
             'info' => array( 'Info' ),
             'contact' => array( 'Contact' )
         );
