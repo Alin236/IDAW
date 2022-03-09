@@ -9,7 +9,7 @@
             'contact' => array( 'Contact' ),
             'info' => array( 'Info' ),
         );
-        // Création du menu en insérant l'attribut id=currentpage au bon endroit
+        // Création du menu en insérant l'attribut class=selected au bon endroit
         echo '<nav class="menu"><ul>';
         foreach($mymenu as $pageId => $pageParameters) {
             echo '<li';
@@ -19,6 +19,7 @@
             echo "><a href=\"index.php?page=$pageId&leng=$currentLeng\">$pageParameters[0]</a></li>";
         }
         echo '</ul></nav>';
+        // un tableau qui définit les langues disponible du site
         $myLeng = array(
             'fr' => array( 'Français' ),
             'en' => array( 'English' )
