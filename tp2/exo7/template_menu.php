@@ -19,6 +19,14 @@
             }
             echo "><a href=index.php?page=".$pageId."&leng=$currentLeng>".$pageParameters[0]."</a></li>";
         }
+        $myLeng = array(
+            'fr' => array( 'Français' ),
+            'en' => array( 'English' )
+        );
+        foreach($myLeng as $leng => $lengParameters){
+            if($leng!=$currentLeng)
+                echo "<li><a href=index.php?page=$currentPageId&leng=$leng>".$lengParameters[0]."</a></li>";
+        }
         echo '</ul></nav>';
         // Le menu a été crée et la page actuel marqué
     }
