@@ -2,12 +2,12 @@
     $currentLeng = 'fr';
     if(isset($_GET['leng']))
         $currentLeng = $_GET['leng'];
-    require_once("template_header.php");
+    require_once('template_header.php');
     myHeader($currentLeng);
 ?>
     <div class="container">
         <?php
-            require_once("template_menu.php");
+            require_once('template_menu.php');
             $currentPageId = 'accueil';
             if(isset($_GET['page'])){
                 $currentPageId = $_GET['page'];
@@ -18,7 +18,7 @@
         ?>
         <section class="contenu">
             <?php
-                $pageToInclude = $currentLeng."/".$currentPageId.".php";
+                $pageToInclude = "$currentLeng/$currentPageId.php";
                 if(is_readable($pageToInclude))
                     require_once($pageToInclude);
                 else
@@ -26,4 +26,4 @@
             ?>
         </section>
     </div>
-<?php require_once("template_footer.php")?>
+<?php require_once('template_footer.php')?>
