@@ -11,7 +11,7 @@
                 if($currentPageId == 'index')
                     $currentPageId = 'accueil';
             }
-            renderMenuToHTML($currentPageId);
+            renderMenuToHTML($currentPageId, $currentLeng);
         ?>
         <section class="contenu">
             <?php

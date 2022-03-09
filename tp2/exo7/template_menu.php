@@ -1,5 +1,5 @@
 <?php
-    function renderMenuToHTML($currentPageId) {
+    function renderMenuToHTML($currentPageId, $currentLeng) {
         // un tableau qui définit la structure du site
         $mymenu = array(
             // idPage titre
@@ -17,7 +17,7 @@
             if($pageId == $currentPageId){
                 echo ' id="currentpage"';
             }
-            echo "><a href=index.php?page=".$pageId.">".$pageParameters[0]."</a></li>";
+            echo "><a href=index.php?page=".$pageId."&leng=$currentLeng>".$pageParameters[0]."</a></li>";
         }
         echo '</ul></nav>';
         // Le menu a été crée et la page actuel marqué
