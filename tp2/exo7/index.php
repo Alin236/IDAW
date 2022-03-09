@@ -1,9 +1,12 @@
-<?php require_once("template_header.php")?>
+<?php 
+    $currentLeng = 'fr';
+    if(isset($_GET['leng']))
+        $currentLeng = $_GET['leng'];
+    require_once("template_header.php");
+    myHeader($currentLeng);
+?>
     <div class="container">
         <?php
-            $currentLeng = 'fr';
-            if(isset($_GET['leng']))
-                $currentLeng = $_GET['leng'];
             require_once("template_menu.php");
             $currentPageId = 'accueil';
             if(isset($_GET['page'])){
