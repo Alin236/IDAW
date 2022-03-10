@@ -1,45 +1,3 @@
-.container{
-    display: flex;
-}
-
-.menu{
-    flex-grow: 0;
-    border: thick ridge lightgray;
-    background-color: lightgrey;
-    margin: 2px;
-}
-
-.menu li {
-    list-style-type: none;
-    border-top: 1px gray;
-    border-bottom: 1px gray;
-    border-style: outset;
-}
-
-.menu a {
-    display: block;
-    padding: 5px 30px;
-    text-align: center;
-    text-decoration: none;
-    color: black;
-}
-
-.menu ul {
-    margin:0%;
-    padding:0%;
-}
-
-.menu .selected{
-    border-style: inset;
-}
-
-.contenu{
-    flex-grow: 1;
-    border: thin solid lightgray;
-    padding: 5px;
-    margin: 5px;
-}
-
 header{
     border-bottom-width: thick;
     border-bottom-style: groove;
@@ -55,7 +13,55 @@ footer{
     margin-top: 10px;
 }
 
+.container{
+    display: flex;
+}
+
+.menu{
+    flex-grow: 0;
+    border: thick ridge lightgray;
+    background-color: lightgrey;
+    margin: 2px;
+}
+
+.menu li{
+    list-style-type: none;
+    border-top: 1px gray;
+    border-bottom: 1px gray;
+    border-style: outset;
+}
+
+.menu a{
+    display: block;
+    padding: 5px 30px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.menu ul{
+    margin:0%;
+    padding:0%;
+}
+
+.menu .selected{
+    border-style: inset;
+}
+
 .columnMenu{
     display: flex;
     flex-direction: column;
+}
+
+.contenu{
+    flex-grow: 1;
+    border: thin solid lightgray;
+    padding: 5px;
+    margin: 5px;
+}
+
+.contenu img{
+    width: 15%;
+    display: block;
+    margin: auto;
 }
