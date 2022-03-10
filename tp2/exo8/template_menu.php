@@ -1,17 +1,10 @@
 <?php
     function renderMenuToHTML($currentPageId, $currentLeng) {
         // un tableau qui définit la structure du site
-        $mymenu = array(
-            // idPage titre
-            'accueil' => array( 'Accueil' ),
-            'cv' => array( 'CV' ),
-            'projets' => array( 'Projets' ),
-            'contact' => array( 'Contact' ),
-            'info' => array( 'Info' ),
-        );
+        @require_once('var/myMenu.php');
         // Création du menu en insérant l'attribut class=selected au bon endroit
         echo '<nav class="menu"><ul>';
-        foreach($mymenu as $pageId => $pageParameters) {
+        foreach($myMenu as $pageId => $pageParameters) {
             echo '<li';
             if($pageId == $currentPageId){
                 echo ' class="selected"';
@@ -20,11 +13,7 @@
         }
         echo '</ul></nav>';
         // un tableau qui définit les langues disponible du site
-        $myLeng = array(
-            'fr' => array( 'Français' ),
-            'en' => array( 'English' ),
-            'es' => array( 'Español' )
-        );
+        @require_once('var/myLeng.php');
         echo '<nav class="menu"><ul>';
         foreach($myLeng as $leng => $lengParameters){
             echo '<li';
