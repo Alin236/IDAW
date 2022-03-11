@@ -33,7 +33,7 @@
     <li>Excel</li>
 </ul>
 <h3>Formation</h3>
-<h4>2020-2023 : Etude d’ingénieur à l’IMT Nord Europe</h4>
+<h4>2020-2023 : Etudes d’ingénieur à l’IMT Nord Europe</h4>
 <ul>
     <li>Algorithme et programmation (Java)</li>
     <li>Programmation orientée objet (Java)</li>
