@@ -1,5 +1,6 @@
 body{
-    background-color: floralwhite;
+    background: linear-gradient(floralwhite, cornsilk);
+    background-repeat: no-repeat;
 }
 
 header{
