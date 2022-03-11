@@ -13,4 +13,7 @@
     if(isset($_GET['css']))
         $css = $_GET['css'];
     setcookie('css', $css);
+
+    echo "<link href=\"$css.css\" rel=\"stylesheet\" type=\"text/css\">";
+    echo "<p>$css<p>";
 ?>
