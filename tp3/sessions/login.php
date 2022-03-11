@@ -14,3 +14,4 @@
         </tr>
     </table>
 </form>
+<p><a href="connected.php">login.php</a></p>
