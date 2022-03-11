@@ -45,8 +45,7 @@ Spring)</li>
     <li>Conception et développement d’applications WEB (Java, JavaScript et 
 HTML)</li>
 </ul>
-<h4>2018-2020 : Classe préparatoire aux grandes écoles (Mathématiques, 
-physique et science de l’ingénieur puis mathématiques et physique)</h4>
+<h4>2018-2020 : Classe préparatoire aux grandes écoles</h4>
 <ul>
     <li>Informatique (Python et SQL)</li>
     <li>Option informatique (Ocaml)</li>
