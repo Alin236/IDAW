@@ -30,4 +30,5 @@
         echo '<p><a href="?disconnect=true">Click ici pour se déconnecter</a></p>';
     }
 ?>
+<p><a href="inscription.php">inscription.php</a></p>
 <p><a href="connected.php">connected.php</a></p>
