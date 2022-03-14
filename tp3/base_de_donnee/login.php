@@ -17,16 +17,16 @@
             </table>
         </form>';
     session_start();
-    if(!isset($_SESSION['login'])){
+    if(!isset($_SESSION['pseudo'])){
         echo $formulaire;
     } else if(isset($_GET['disconnect']) && $_GET['disconnect'] == 'true'){
         echo $formulaire;
-        unset($_SESSION['login']);
+        unset($_SESSION['pseudo']);
         echo '<p>vous avez été déconnecté</p>';
     }
     else {
-        $login = $_SESSION['login'];
-        echo "<p>Vous êtes déjà connecté sous le nom $login";
+        $pseudo = $_SESSION['pseudo'];
+        echo "<p>Vous êtes déjà connecté sous le nom $pseudo";
         echo '<p><a href="?disconnect=true">Click ici pour se déconnecter</a></p>';
     }
 ?>

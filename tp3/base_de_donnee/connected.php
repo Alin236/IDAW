@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION['login'])){
+    if(!isset($_SESSION['pseudo'])){
         
         // on simule une base de données
         $servername = 'localhost';
@@ -16,7 +16,7 @@
             die('Erreur : ' .$connection->connect_error);
         }
 
-        $login = "anonymous";
+        $pseudo = "anonymous";
         $errorText = "";
         $successfullyLogged = false;
         if(isset($_POST['login']) && isset($_POST['password'])) {
@@ -24,15 +24,15 @@
             $tryPwd=$_POST['password'];
 
             $tryLogin = $connection->real_escape_string($tryLogin);
-            $result = $connection->query("SELECT password FROM user WHERE login='$tryLogin'");
+            $result = $connection->query("SELECT password, pseudo FROM user WHERE login='$tryLogin'");
             if($result == 'false')
                 die('échec de la query');
             $result = $result->fetch_all();
-            
+
             // si login existe et password correspond
-            if( !empty($result && $tryPwd == $result[0][0]) ) {
+            if( !empty($result) && $tryPwd == $result[0][0] ) {
                 $successfullyLogged = true;
-                $login = $tryLogin;
+                $pseudo = $result[0][1];
             } else
                 $errorText = "Erreur de login/password";
         } else
@@ -40,13 +40,13 @@
         if(!$successfullyLogged) {
             echo $errorText;
         } else {
-            echo "<h1>Bienvenu ".$login."</h1>";
-            $_SESSION['login'] = $login;
+            echo "<h1>Bienvenu ".$pseudo."</h1>";
+            $_SESSION['pseudo'] = $pseudo;
             echo '<p>Une session a été créé<p>';
         }
     } else {
-        $login = $_SESSION['login'];
-        echo "<h1>Bienvenu ".$login."</h1>";
+        $pseudo = $_SESSION['pseudo'];
+        echo "<h1>Bienvenu ".$pseudo."</h1>";
         echo '<p>Connecté par session<p>';
     }
 ?>
