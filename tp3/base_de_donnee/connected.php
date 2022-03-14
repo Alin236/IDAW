@@ -1,19 +1,36 @@
 <?php
     session_start();
     if(!isset($_SESSION['login'])){
+        
         // on simule une base de données
-        $users = array(
-            // login => password
-            'riri' => 'fifi',
-            'yoda' => 'maitrejedi' );
+        $servername = 'localhost';
+        $username = 'root';
+        $password = '';
+        $database = 'idaw-php-sql';
+        
+        //On établit la connexion
+        $connection = new mysqli($servername, $username, $password, $database);
+        
+        //On vérifie la connexion
+        if($connection->connect_error){
+            die('Erreur : ' .$connection->connect_error);
+        }
+
         $login = "anonymous";
         $errorText = "";
         $successfullyLogged = false;
         if(isset($_POST['login']) && isset($_POST['password'])) {
             $tryLogin=$_POST['login'];
             $tryPwd=$_POST['password'];
+
+            $tryLogin = $connection->real_escape_string($tryLogin);
+            $result = $connection->query("SELECT password FROM user WHERE login='$tryLogin'");
+            if($result == 'false')
+                die('échec de la query');
+            $result = $result->fetch_all();
+            
             // si login existe et password correspond
-            if( array_key_exists($tryLogin,$users) && $users[$tryLogin]==$tryPwd ) {
+            if( !empty($result && $tryPwd == $result[0][0]) ) {
                 $successfullyLogged = true;
                 $login = $tryLogin;
             } else
