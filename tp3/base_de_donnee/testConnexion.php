@@ -11,7 +11,7 @@
     if($connection->connect_error){
         die('Erreur : ' .$connection->connect_error);
     }
-    $result = $connection->query('SELECT * FROM User');
+    $result = $connection->query('SELECT * FROM user');
     if($result != false){
         $all = $result->fetch_all();
         echo '<table>
