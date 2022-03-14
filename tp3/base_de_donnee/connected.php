@@ -50,4 +50,4 @@
         echo '<p>Connecté par session<p>';
     }
 ?>
-<p><a href="login.php">connected.php</a></p>
+<p><a href="login.php">login.php</a></p>
