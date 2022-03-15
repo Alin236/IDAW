@@ -32,7 +32,7 @@
         <div class="form-group row">
             <label for="inputNom" class="col-sm-2 col-form-label">Nom*</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="inputNom" value="a">
+                <input type="text" class="form-control" id="inputNom" >
             </div>
         </div>
         <div class="form-group row">
@@ -79,22 +79,23 @@
             let aimeCours = $('#inputAimeCours').is(':checked');
             let commentaire = $('#inputCommentaire').val();
             if(nom != ''){
+                let id;
                 if(replace){
-                    const id = idToReplace;
-                    $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="button${id}">edit</button></td><td></td></tr>`);
-                    $(`#button${id}`).click(function(){editUtilisateur(id)});
+                    id = idToReplace;
+                    $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                     replace = false;
                 }
                 else{
-                    const id = idUtilisateur;
-                    $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="button${id}">edit</button></td><td></td></tr>`);
-                    $(`#button${id}`).click(function(){editUtilisateur(id)});
+                    id = idUtilisateur;
+                    $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                     idUtilisateur++;
                 }
+                $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
             }
         }
     </script>
-     <script>
+    <script>
         let idToReplace = 0;
         let replace = false;
         function editUtilisateur(idUtilisateur) {
@@ -107,6 +108,13 @@
             $('#inputCommentaire').val(children[4].textContent);
             idToReplace = idUtilisateur;
             replace = true;
+        }
+    </script>
+    <script>
+        function deleteUtilisateur(idUtilisateur) {
+            let utilisateur = $(`#utilisateur${idUtilisateur}`);
+            children = utilisateur.remove();
+            replace = false;
         }
     </script>
 </body>
