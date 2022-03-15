@@ -68,8 +68,6 @@
         </div>
     </form>
     <script>
-        let idUtilisateur = 0;
-
         function onFormSubmit() {
             // prevent the form to be sent to the server
             event.preventDefault();
@@ -79,19 +77,27 @@
             let aimeCours = $('#inputAimeCours').is(':checked');
             let commentaire = $('#inputCommentaire').val();
             if(nom != ''){
-                let id;
-                if(replace){
-                    id = idToReplace;
-                    $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                    replace = false;
+                let data = {nom, prenom, dateNaissance, aimeCours, commentaire};
+                let dataReceived;
+                $.post('addUser.php', data).done(function(response){
+                    dataReceived = JSON.parse(response);
+                })
+                
+                if( false ){
+                    let id;
+                    if(replace){
+                        id = idToReplace;
+                        $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        replace = false;
+                    }
+                    else{
+                        id = idUtilisateur;
+                        $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        idUtilisateur++;
+                    }
+                    $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                    $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                 }
-                else{
-                    id = idUtilisateur;
-                    $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                    idUtilisateur++;
-                }
-                $(`#editButton${id}`).click(function(){editUtilisateur(id)});
-                $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
             }
         }
     </script>
