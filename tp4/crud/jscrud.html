@@ -28,7 +28,7 @@
         <tbody id="studentsTableBody">
         </tbody>
     </table>
-    <form id="addStudentForm" action="" onsubmit="addUtilisateur()">
+    <form id="addStudentForm" action="" onsubmit="onFormSubmit()">
         <div class="form-group row">
             <label for="inputNom" class="col-sm-2 col-form-label">Nom*</label>
             <div class="col-sm-3">
@@ -70,7 +70,7 @@
     <script>
         let idUtilisateur = 0;
 
-        function addUtilisateur() {
+        function onFormSubmit() {
             // prevent the form to be sent to the server
             event.preventDefault();
             let nom = $('#inputNom').val();
