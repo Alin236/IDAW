@@ -106,9 +106,8 @@
             if(nom != ''){
                 //CREATE only, EDIT not implemented
                 let data = {nom, prenom, dateNaissance, aimeCours, commentaire};
-                $.post('addUser.php', data).done(function(response){
-                    let dataReceived = JSON.parse(response);
-                    if( dataReceived.succes ){
+                $.post('addUser.php', data, function(response){
+                    if( response ){
                         if(replace){
                             id = idToReplace;
                             $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
@@ -122,7 +121,7 @@
                         $(`#editButton${id}`).click(function(){editUtilisateur(id)});
                         $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                     }
-                })
+                }, 'json');
             }
         }
     </script>

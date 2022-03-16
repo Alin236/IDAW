@@ -10,7 +10,6 @@
 
     //On vérifie la connexion
     if($connection->connect_error){
-        echo '{"succes": 0}';
         die('Erreur : ' .$connection->connect_error);
     }
 
@@ -24,9 +23,6 @@
         $query = "INSERT INTO utilisateur (id, nom, prenom, date_naissance, aime_cours, commentaire) VALUES (NULL, '$nom', '$prenom', '$dateNaissance', $aimeCours, '$commentaire')";
         $result = $connection->query($query);
 
-        echo '{"succes": 1}';
-    }
-    else{
-        echo '{"succes": 0}';
+        echo $result;
     }
 ?>
