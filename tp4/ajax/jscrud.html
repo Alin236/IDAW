@@ -71,14 +71,13 @@
         //READ
         $(document).ready(function() {
             $.get('getUser.php', function(response){
-                let id;
                 let nom;
                 let prenom;
                 let dateNaissance;
                 let aimeCours;
                 let commentaire;
                 response.forEach(row => {
-                    id=row[0];
+                    const id=row[0];
                     nom=row[1];
                     prenom=row[2];
                     dateNaissance=row[3];
@@ -104,24 +103,32 @@
             let aimeCours = $('#inputAimeCours').is(':checked');
             let commentaire = $('#inputCommentaire').val();
             if(nom != ''){
-                //CREATE only, EDIT not implemented
-                let data = {nom, prenom, dateNaissance, aimeCours, commentaire};
-                $.post('addUser.php', data, function(response){
-                    if( response ){
-                        if(replace){
-                            id = idToReplace;
-                            $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                            replace = false;
-                        }
-                        else{//CREATE
-                            id = idUtilisateur;
+                let data;
+                if(!replace){ //CREATE
+                    data = {nom, prenom, dateNaissance, aimeCours, commentaire};
+                    $.post('addUser.php', data, function(response){
+                        if( response ){
+                            //CREATE
+                            const id = idUtilisateur;
                             $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                             idUtilisateur++;
+                            $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                            $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                         }
-                        $(`#editButton${id}`).click(function(){editUtilisateur(id)});
-                        $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
-                    }
-                }, 'json');
+                    }, 'json');
+                }
+                else{ //EDIT
+                    const id = idToReplace;
+                    data = {id, nom, prenom, dateNaissance, aimeCours, commentaire};
+                    console.log(data)
+                    $.post('editUser.php', data, function(response){
+                        console.log(response)
+                        console.log('s');
+                        $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        replace = false;
+                    });
+                    console.log('fin sync');
+                }
             }
         }
     </script>
