@@ -69,6 +69,27 @@
     </form>
     <script>
         //READ
+        $(document).ready(function() {
+            $.get('readUser.php', function(response){
+                let id;
+                let nom;
+                let prenom;
+                let dateNaissance;
+                let aimeCours;
+                let commentaire;
+                response.forEach(row => {
+                    id=row[0];
+                    nom=row[1];
+                    prenom=row[2];
+                    dateNaissance=row[3];
+                    aimeCours=row[4];
+                    commentaire=row[5];
+                    $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours == true ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                    $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                    $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
+                });
+            }, 'json')
+        });
     </script>
     <script>
         //CREATE and EDIT
