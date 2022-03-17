@@ -117,6 +117,8 @@
                     $.post('editUser.php', data, function(response){
                         $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                         replace = false;
+                        $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                        $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                     }, 'json');
                 }
             }
