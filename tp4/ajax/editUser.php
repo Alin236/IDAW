@@ -13,7 +13,7 @@
         die('Erreur : ' .$connection->connect_error);
     }
 
-    if(isset($_POST('id') && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['dateNaissance']) && isset($_POST['aimeCours']) && isset($_POST['commentaire'])){
+    if(isset($_POST['id']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['dateNaissance']) && isset($_POST['aimeCours']) && isset($_POST['commentaire'])){
         $id = $connection->real_escape_string($_POST['id']);
         $nom = $connection->real_escape_string($_POST['nom']);
         $prenom = $connection->real_escape_string($_POST['prenom']);

@@ -120,14 +120,12 @@
                 else{ //EDIT
                     const id = idToReplace;
                     data = {id, nom, prenom, dateNaissance, aimeCours, commentaire};
-                    console.log(data)
                     $.post('editUser.php', data, function(response){
-                        console.log(response)
-                        console.log('s');
-                        $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                        replace = false;
-                    });
-                    console.log('fin sync');
+                        if( response ){
+                            $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                            replace = false;
+                        }
+                    }, 'json');
                 }
             }
         }
