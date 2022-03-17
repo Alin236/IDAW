@@ -92,8 +92,6 @@
     </script>
     <script>
         //CREATE and EDIT
-        let idUtilisateur = 0;
-
         function onFormSubmit() {
             // prevent the form to be sent to the server
             event.preventDefault();
@@ -107,11 +105,11 @@
                 if(!replace){ //CREATE
                     data = {nom, prenom, dateNaissance, aimeCours, commentaire};
                     $.post('addUser.php', data, function(response){
+                        console.log(response);
                         if( response ){
                             //CREATE
-                            const id = idUtilisateur;
+                            const id = response;
                             $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                            idUtilisateur++;
                             $(`#editButton${id}`).click(function(){editUtilisateur(id)});
                             $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                         }

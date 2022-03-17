@@ -23,6 +23,7 @@
         $query = "INSERT INTO utilisateur (id, nom, prenom, date_naissance, aime_cours, commentaire) VALUES (NULL, '$nom', '$prenom', '$dateNaissance', $aimeCours, '$commentaire')";
         $result = $connection->query($query);
 
-        echo $result;
+        if($result)
+            echo $connection->insert_id;
     }
 ?>
