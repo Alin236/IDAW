@@ -63,7 +63,7 @@
         <div class="form-group row">
             <span class="col-sm-2"></span>
             <div class="col-sm-2">
-                <button type="submit" class="btn btn-primary form-control">Submit</button>
+                <button type="submit" class="btn btn-primary form-control" id="submitButton">Submit</button>
             </div>
         </div>
     </form>
@@ -117,6 +117,7 @@
                     $.post('editUser.php', data, function(){
                         $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                         replace = false;
+                        $('#submitButton').html('Submit');
                         $(`#editButton${id}`).click(function(){editUtilisateur(id)});
                         $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                     }, 'json');
@@ -138,6 +139,7 @@
             $('#inputCommentaire').val(children[4].textContent);
             idToReplace = idUtilisateur;
             replace = true;
+            $('#submitButton').html('Edit');
         }
     </script>
     <script>
@@ -148,6 +150,7 @@
             $.post('destroyUser.php', data, function(response){
                 utilisateur.remove();
                 replace = false;
+                $('#submitButton').html('Submit');
             }, 'json');
         }
     </script>
