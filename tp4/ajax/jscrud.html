@@ -150,8 +150,14 @@
         //DELETE
         function deleteUtilisateur(idUtilisateur) {
             let utilisateur = $(`#utilisateur${idUtilisateur}`);
-            children = utilisateur.remove();
-            replace = false;
+            data = {id: idUtilisateur};
+            $.post('destroyUser.php', data, function(response){
+                console.log(response);
+                if( response ){
+                    utilisateur.remove();
+                    replace = false;
+                }
+            }, 'json');
         }
     </script>
 </body>
