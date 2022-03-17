@@ -105,24 +105,18 @@
                 if(!replace){ //CREATE
                     data = {nom, prenom, dateNaissance, aimeCours, commentaire};
                     $.post('addUser.php', data, function(response){
-                        console.log(response);
-                        if( response ){
-                            //CREATE
-                            const id = response;
-                            $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                            $(`#editButton${id}`).click(function(){editUtilisateur(id)});
-                            $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
-                        }
+                        const id = response;
+                        $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                        $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
                     }, 'json');
                 }
                 else{ //EDIT
                     const id = idToReplace;
                     data = {id, nom, prenom, dateNaissance, aimeCours, commentaire};
                     $.post('editUser.php', data, function(response){
-                        if( response ){
-                            $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
-                            replace = false;
-                        }
+                        $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        replace = false;
                     }, 'json');
                 }
             }
@@ -150,11 +144,8 @@
             let utilisateur = $(`#utilisateur${idUtilisateur}`);
             data = {id: idUtilisateur};
             $.post('destroyUser.php', data, function(response){
-                console.log(response);
-                if( response ){
-                    utilisateur.remove();
-                    replace = false;
-                }
+                utilisateur.remove();
+                replace = false;
             }, 'json');
         }
     </script>
