@@ -231,7 +231,7 @@
                         .attr("transform", "rotate(-65)");
                     
                     svg.append("g")
-                        .call(d3.axisLeft(y).ticks(d3.max(dataBirthGraph, d => d.value)));
+                        .call(d3.axisLeft(y).ticks(Math.min(10, d3.max(dataBirthGraph, d => d.value))));
                     
                     // Ajout des bars en utilisant les données de dataBirthGraph
                     // La largeur de la barre est déterminée par la fonction x
