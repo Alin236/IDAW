@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <div id="graph"></div>
+    <div id="birthGraph"></div>
     <table class="table">
         <thead>
             <tr>
@@ -175,7 +175,7 @@
         const y = d3.scaleLinear()
             .range([height, 0]);
 
-        var svg = d3.select("#graph").append("svg")
+        var svg = d3.select("#birthGraph").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
