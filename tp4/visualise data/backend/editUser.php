@@ -1,17 +1,6 @@
 <?php
-    // on simule une base de données
-    $servername = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'idaw-php-ajax';
-
-    //On établit la connexion
-    $connection = new mysqli($servername, $username, $password, $database);
-
-    //On vérifie la connexion
-    if($connection->connect_error){
-        die('Erreur : ' .$connection->connect_error);
-    }
+    require_once('connection.php');
+    // $connection
 
     if(isset($_POST['id']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['dateNaissance']) && isset($_POST['aimeCours']) && isset($_POST['commentaire'])){
         $id = $connection->real_escape_string($_POST['id']);
