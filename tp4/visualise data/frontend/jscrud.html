@@ -15,11 +15,12 @@
     </style>
 </head>
 <body>
-    <div style="display: flex; flex-direction: row-reverse;">
-        <div style="display: flex; flex-direction: column;">
+    <div style="display: flex;flex-direction: row-reverse;justify-content: center;">
+        <div style="display: flex;flex-direction: column;align-items: center;">
             <div id="birthGraph"></div>
+            <div id="likeGraph"></div>
         </div>
-        <div style="display: flex; flex-direction: column-reverse;">
+        <div style="display: flex;flex-direction: column-reverse;align-items: center;justify-content: flex-end;">
             <table class="table">
                 <thead>
                     <tr>
@@ -198,9 +199,9 @@
                     const y = d3.scaleLinear()
                         .range([height, 0]);
  
-                    d3.select("#svg").remove();
+                    d3.select("#svgBirthGraph").remove();
                     var svg = d3.select("#birthGraph").append("svg")
-                        .attr("id", "svg")
+                        .attr("id", "svgBirthGraph")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
                         .append("g")
@@ -241,6 +242,33 @@
                         .attr('fill', 'lightskyblue');
                     });
         }
+    </script>
+    <script>
+        var tab=[0,0];
+        var couleurs=["green","red"];
+        
+        d3.select("#svgLikeGraph").remove();
+        var svg = d3.select("#likeGraph").append("svg")
+            .attr('id', 'svgLikeGraph')
+            .attr("width","200px")
+            .attr("height","200px")
+            .style("border","1px solid black");
+
+        var pieTab=d3.pie();
+        pieTab.value(function(d){
+                return d;
+            });
+
+        var arc=d3.arc().innerRadius(0).outerRadius(88);
+
+        var grp=svg.append("g").attr("transform","translate(100,100)");
+        var graph=grp.selectAll("path").data(pieTab(tab))
+            .enter()
+            .append("path")
+            .attr("fill",function(d,i){
+                    return(couleurs[i]);
+                })
+            .attr("d",arc);
     </script>
 </body>
 </html>
