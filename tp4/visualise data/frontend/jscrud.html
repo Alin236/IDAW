@@ -188,7 +188,6 @@
             ];
 
             $.get('../backend/dataBirthGraph.php', function(response){
-
                 response.forEach(element => {
                     dataBirthGraph[element[0]-1].value = element[1];
                 });
@@ -246,36 +245,42 @@
                         .attr("y", d => y(d.value))
                         .attr("height", d => height - y(d.value))
                         .attr('fill', 'lightskyblue');
-                    });
+            });
         }
     </script>
     <script>
         function plotLikeGraph(){
-            var tab=[0,0];
-            var couleurs=["green","red"];
+            var likeData=[0,0];
+            const couleurs=["red","green"];
             
-            d3.select("#svgLikeGraph").remove();
-            var svg = d3.select("#likeGraph").append("svg")
-                .attr('id', 'svgLikeGraph')
-                .attr("width","200px")
-                .attr("height","200px")
-                .style("border","1px solid black");
-
-            var pieTab=d3.pie();
-            pieTab.value(function(d){
-                    return d;
+            $.get('../backend/dataLikeGraph.php', function(response){
+                response.forEach(element => {
+                    likeData[element[0]] = element[1];
                 });
+            }, 'json').done(function(){
+                d3.select("#svgLikeGraph").remove();
+                var svg = d3.select("#likeGraph").append("svg")
+                    .attr('id', 'svgLikeGraph')
+                    .attr("width","200px")
+                    .attr("height","200px")
+                    .style("border","1px solid black");
 
-            var arc=d3.arc().innerRadius(0).outerRadius(88);
+                var pieLike=d3.pie();
+                pieLike.value(function(d){
+                        return d;
+                    });
 
-            var grp=svg.append("g").attr("transform","translate(100,100)");
-            var graph=grp.selectAll("path").data(pieTab(tab))
-                .enter()
-                .append("path")
-                .attr("fill",function(d,i){
-                        return(couleurs[i]);
-                    })
-                .attr("d",arc);
+                var arc=d3.arc().innerRadius(0).outerRadius(88);
+
+                var grp=svg.append("g").attr("transform","translate(100,100)");
+                var graph=grp.selectAll("path").data(pieLike(likeData))
+                    .enter()
+                    .append("path")
+                    .attr("fill",function(d,i){
+                            return(couleurs[i]);
+                        })
+                    .attr("d",arc);
+            });
         }
     </script>
 </body>
