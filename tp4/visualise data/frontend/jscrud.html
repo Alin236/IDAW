@@ -72,7 +72,7 @@
     <script>
         //READ
         $(document).ready(function() {
-            $.get('getUser.php', function(response){
+            $.get('../backend/getUser.php', function(response){
                 let nom;
                 let prenom;
                 let dateNaissance;
@@ -106,7 +106,7 @@
                 let data;
                 if(!replace){ //CREATE
                     data = {nom, prenom, dateNaissance, aimeCours, commentaire};
-                    $.post('addUser.php', data, function(response){
+                    $.post('../backend/addUser.php', data, function(response){
                         const id = response;
                         $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                         $(`#editButton${id}`).click(function(){editUtilisateur(id)});
@@ -116,7 +116,7 @@
                 else{ //EDIT
                     const id = idToReplace;
                     data = {id, nom, prenom, dateNaissance, aimeCours, commentaire};
-                    $.post('editUser.php', data, function(){
+                    $.post('../backend/editUser.php', data, function(){
                         $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
                         replace = false;
                         $('#submitButton').html('Submit');
@@ -149,7 +149,7 @@
         function deleteUtilisateur(idUtilisateur) {
             let utilisateur = $(`#utilisateur${idUtilisateur}`);
             data = {id: idUtilisateur};
-            $.post('destroyUser.php', data, function(response){
+            $.post('../backend/destroyUser.php', data, function(response){
                 utilisateur.remove();
                 replace = false;
                 $('#submitButton').html('Submit');
