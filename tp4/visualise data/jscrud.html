@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+    <div id="graph"></div>
     <table class="table">
         <thead>
             <tr>
@@ -154,6 +155,66 @@
                 $('#submitButton').html('Submit');
             }, 'json');
         }
+    </script>
+    <script type="text/javascript">
+        response = [
+            {'month':'janvier', 'number':2},
+            {'month':'février', 'number':3},
+            {'month':'mars', 'number':1},
+            {'month':'a', 'number':2},
+        ];
+
+        const margin = {top: 20, right: 20, bottom: 90, left: 120};
+        const width = 800 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        const x = d3.scaleBand()
+            .range([0, width])
+            .padding(0.1);
+
+        const y = d3.scaleLinear()
+            .range([height, 0]);
+
+        var svg = d3.select("#graph").append("svg")
+            .attr("id", "svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Mise en relation du scale avec les données de notre fichier
+        // Pour l'axe X, c'est la liste des mois
+        // Pour l'axe Y, c'est max des nombres
+        x.domain(response.map(d => d.month));
+        y.domain([0, d3.max(response, d => d.number)]);
+
+        // Ajout de l'axe X au SVG
+        // Déplacement de l'axe horizontal et du futur texte (via la fonction translate) au bas du SVG
+        // Selection des noeuds text, positionnement puis rotation
+        svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSize(0))
+        .selectAll("text")	
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+        
+        svg.append("g")
+            .call(d3.axisLeft(y).ticks(d3.max(response, d => d.number)));
+        
+        // Ajout des bars en utilisant les données de response
+        // La largeur de la barre est déterminée par la fonction x
+        // La hauteur par la fonction y en tenant compte du nombre
+        svg.selectAll(".bar")
+            .data(response)
+        .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", d => x(d.month))
+            .attr("width", x.bandwidth())
+            .attr("y", d => y(d.number))
+            .attr("height", d => height - y(d.number))
+            .attr('fill', 'lightskyblue');
     </script>
 </body>
 </html>
