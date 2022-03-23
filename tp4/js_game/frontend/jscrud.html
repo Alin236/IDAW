@@ -19,6 +19,7 @@
         <div style="display: flex;flex-direction: column;align-items: center;">
             <div id="birthGraph"></div>
             <div id="likeGraph"></div>
+            <canvas id="myCanvas" style="background: #eee; display: block; margin: 0 auto;" width="480" height="320"></canvas>
         </div>
         <div style="display: flex;flex-direction: column-reverse;align-items: center;justify-content: flex-end;">
             <table class="table">
@@ -282,6 +283,12 @@
                     .attr("d",arc);
             });
         }
+    </script>
+    <script>
+        //Le jeux
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
     </script>
 </body>
 </html>
