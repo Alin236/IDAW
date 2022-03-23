@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>tabletest</title>
+    <style>
+    body{ margin-top: 5em; }
+    .table {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div style="display: flex;flex-direction: row-reverse;justify-content: center;">
+        <div style="display: flex;flex-direction: column;align-items: center;">
+            <div id="birthGraph"></div>
+            <div id="likeGraph"></div>
+        </div>
+        <div style="display: flex;flex-direction: column-reverse;align-items: center;justify-content: flex-end;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Date de naissance</th>
+                        <th scope="col">Aime le cours Web</th>
+                        <th scope="col">Remarques</th>
+                        <th scope="col" colspan="2">CRUD</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                </tbody>
+            </table>
+            <form id="addStudentForm" action="" onsubmit="onFormSubmit()">
+                <div class="form-group row">
+                    <label for="inputNom" class="col-sm-2 col-form-label">Nom*</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputNom" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNom" class="col-sm-2 col-form-label">Prenom</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputPrenom">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNom" class="col-sm-2 col-form-label">Date de naissance*</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputDateNaissance" placeholder="yyyy-mm-dd" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNom" class="col-sm-2 col-form-label">Aime le cours*</label>
+                    <div class="col-sm-3">
+                        <input type="checkbox" class="form-control" id="inputAimeCours" >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNom" class="col-sm-2 col-form-label">Commentaire</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputCommentaire" >
+                    </div>
+                </div>
+                    
+                <div class="form-group row">
+                    <span class="col-sm-2"></span>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary form-control" id="submitButton">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //READ
+        $(document).ready(function() {
+            $.get('../backend/getUser.php', function(response){
+                let nom;
+                let prenom;
+                let dateNaissance;
+                let aimeCours;
+                let commentaire;
+                response.forEach(row => {
+                    const id=row[0];
+                    nom=row[1];
+                    prenom=row[2];
+                    dateNaissance=row[3];
+                    aimeCours=row[4];
+                    commentaire=row[5];
+                    $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours == true ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                    $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                    $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
+                });
+            }, 'json')
+            plotAllGraph();
+        });
+    </script>
+    <script>
+        //CREATE and EDIT
+        function onFormSubmit() {
+            // prevent the form to be sent to the server
+            event.preventDefault();
+            let nom = $('#inputNom').val();
+            let prenom = $('#inputPrenom').val();
+            let dateNaissance = $('#inputDateNaissance').val();
+            let aimeCours = $('#inputAimeCours').is(':checked');
+            let commentaire = $('#inputCommentaire').val();
+            if(nom != ''){
+                let data;
+                if(!replace){ //CREATE
+                    data = {nom, prenom, dateNaissance, aimeCours, commentaire};
+                    $.post('../backend/addUser.php', data, function(response){
+                        const id = response;
+                        $('#studentsTableBody').append(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                        $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
+                    }, 'json').done(plotAllGraph);
+                }
+                else{ //EDIT
+                    const id = idToReplace;
+                    data = {id, nom, prenom, dateNaissance, aimeCours, commentaire};
+                    $.post('../backend/editUser.php', data, function(){
+                        $(`#utilisateur${id}`).replaceWith(`<tr id="utilisateur${id}"><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeCours ? 'oui' : 'non'}</td><td>${commentaire}</td><td><button id="editButton${id}">edit</button></td><td><button id="deleteButton${id}">delete</button></td></tr>`);
+                        replace = false;
+                        $('#submitButton').html('Submit');
+                        $(`#editButton${id}`).click(function(){editUtilisateur(id)});
+                        $(`#deleteButton${id}`).click(function(){deleteUtilisateur(id)});
+                    }, 'json').done(plotAllGraph);
+                }
+            }
+        }
+    </script>
+    <script>
+        //EDIT
+        let idToReplace = 0;
+        let replace = false;
+        function editUtilisateur(idUtilisateur) {
+            let utilisateur = $(`#utilisateur${idUtilisateur}`)[0];
+            children = utilisateur.children;
+            $('#inputNom').val(children[0].textContent);
+            $('#inputPrenom').val(children[1].textContent);
+            $('#inputDateNaissance').val(children[2].textContent);
+            $('#inputAimeCours').prop('checked', children[3].textContent == 'oui' ? true : false);
+            $('#inputCommentaire').val(children[4].textContent);
+            idToReplace = idUtilisateur;
+            replace = true;
+            $('#submitButton').html('Edit');
+        }
+    </script>
+    <script>
+        //DELETE
+        function deleteUtilisateur(idUtilisateur) {
+            let utilisateur = $(`#utilisateur${idUtilisateur}`);
+            data = {id: idUtilisateur};
+            $.post('../backend/destroyUser.php', data, function(response){
+                utilisateur.remove();
+                replace = false;
+                $('#submitButton').html('Submit');
+            }, 'json').done(plotAllGraph);
+        }
+    </script>
+    <script>
+        function plotAllGraph(){
+            plotBirthGraph();
+            plotLikeGraph();
+        }
+    </script>
+    <script type="text/javascript">
+        function plotBirthGraph(){
+            dataBirthGraph = [
+                {'month':'Janvier', 'value':0},
+                {'month':'Février', 'value':0},
+                {'month':'Mars', 'value':0},
+                {'month':'Avril', 'value':0},
+                {'month':'Mai', 'value':0},
+                {'month':'Juin', 'value':0},
+                {'month':'Juillet', 'value':0},
+                {'month':'Août', 'value':0},
+                {'month':'Septembre', 'value':0},
+                {'month':'Octobre', 'value':0},
+                {'month':'Novembre', 'value':0},
+                {'month':'Décembre', 'value':0},
+            ];
+
+            $.get('../backend/dataBirthGraph.php', function(response){
+                response.forEach(element => {
+                    dataBirthGraph[element[0]-1].value = element[1];
+                });
+            }, 'json')
+                .done(function(){
+                    const margin = {top: 20, right: 20, bottom: 90, left: 120};
+                    const width = 800 - margin.left - margin.right;
+                    const height = 400 - margin.top - margin.bottom;
+
+                    const x = d3.scaleBand()
+                        .range([0, width])
+                        .padding(0.1);
+
+                    const y = d3.scaleLinear()
+                        .range([height, 0]);
+ 
+                    d3.select("#svgBirthGraph").remove();
+                    var svg = d3.select("#birthGraph").append("svg")
+                        .attr("id", "svgBirthGraph")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                    // Mise en relation du scale avec les données de notre fichier
+                    // Pour l'axe X, c'est la liste des mois
+                    // Pour l'axe Y, c'est max des nombres
+                    x.domain(dataBirthGraph.map(d => d.month));
+                    y.domain([0, d3.max(dataBirthGraph, d => d.value)]);
+
+                    // Ajout de l'axe X au SVG
+                    // Déplacement de l'axe horizontal et du futur texte (via la fonction translate) au bas du SVG
+                    // Selection des noeuds text, positionnement puis rotation
+                    svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x).tickSize(0))
+                    .selectAll("text")	
+                        .style("text-anchor", "end")
+                        .attr("dx", "-.8em")
+                        .attr("dy", ".15em")
+                        .attr("transform", "rotate(-65)");
+                    
+                    svg.append("g")
+                        .call(d3.axisLeft(y).ticks(Math.min(10, d3.max(dataBirthGraph, d => d.value))));
+                    
+                    // Ajout des bars en utilisant les données de dataBirthGraph
+                    // La largeur de la barre est déterminée par la fonction x
+                    // La hauteur par la fonction y en tenant compte du nombre
+                    svg.selectAll(".bar")
+                        .data(dataBirthGraph)
+                    .enter().append("rect")
+                        .attr("class", "bar")
+                        .attr("x", d => x(d.month))
+                        .attr("width", x.bandwidth())
+                        .attr("y", d => y(d.value))
+                        .attr("height", d => height - y(d.value))
+                        .attr('fill', 'lightskyblue');
+            });
+        }
+    </script>
+    <script>
+        function plotLikeGraph(){
+            var likeData=[0,0];
+            const couleurs=["red","green"];
+            
+            $.get('../backend/dataLikeGraph.php', function(response){
+                response.forEach(element => {
+                    likeData[element[0]] = element[1];
+                });
+            }, 'json').done(function(){
+                d3.select("#svgLikeGraph").remove();
+                var svg = d3.select("#likeGraph").append("svg")
+                    .attr('id', 'svgLikeGraph')
+                    .attr("width","200px")
+                    .attr("height","200px")
+                    .style("border","1px solid black");
+
+                var pieLike=d3.pie();
+                pieLike.value(function(d){
+                        return d;
+                    });
+
+                var arc=d3.arc().innerRadius(0).outerRadius(88);
+
+                var grp=svg.append("g").attr("transform","translate(100,100)");
+                var graph=grp.selectAll("path").data(pieLike(likeData))
+                    .enter()
+                    .append("path")
+                    .attr("fill",function(d,i){
+                            return(couleurs[i]);
+                        })
+                    .attr("d",arc);
+            });
+        }
+    </script>
+</body>
+</html>
+
